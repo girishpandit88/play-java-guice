@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                           @controllers.Application.index()
 GET	   /getContents/:bucketName							@controllers.Application.getBucketContents(bucketName: String)
 
 # Map static resources from the /public folder to the /assets URL path

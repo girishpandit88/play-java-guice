@@ -1,5 +1,9 @@
 import play.Application;
 import play.GlobalSettings;
+import play.libs.F.Promise;
+import play.mvc.Http.RequestHeader;
+import play.mvc.Results;
+import play.mvc.SimpleResult;
 import services.S3Service;
 import services.S3ServiceImpl;
 
@@ -24,5 +28,10 @@ public class Global extends GlobalSettings {
     @Override
     public <A> A getControllerInstance(Class<A> aClass) throws Exception {
         return injector.getInstance(aClass);
+    }
+    
+    @Override
+    public Promise<SimpleResult> onError(RequestHeader request, Throwable t) {
+        return Promise.<SimpleResult>pure(Results.internalServerError(views.html.errorHandler.render(t)));
     }
 }
