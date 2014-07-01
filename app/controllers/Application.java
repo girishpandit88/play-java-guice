@@ -1,11 +1,15 @@
 package controllers;
 
 import java.util.List;
+import java.util.Map;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.LoggerFactory;
 
 import play.Configuration;
 import play.Play;
+import play.data.DynamicForm;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import services.S3Service;
@@ -29,10 +33,15 @@ public class Application extends Controller {
 		return ok(views.html.index.render("Welcome to my first app"));
 	}
 
-	public Result getBucketContents(String bucketName) throws JSONException {
-		logger.info("######" + bucketName);
+	public Result getBucketContents() throws JSONException {
+        JsonNode params = request().body().asJson();
+        String bucketName = params.get("bucketName").toString();
+        String didMap = String.valueOf(params.get("didMap"));
+        System.out.println("!#!@!@#!@#----------"+bucketName);
+        logger.info("######" + bucketName);
 		JSONObject jsonResult = new JSONObject();
-		List<S3ObjectSummary> files = s3Service.listBucketContents(bucketName);
+        System.out.println("######"+ didMap);
+        List<S3ObjectSummary> files = s3Service.listBucketContents(bucketName);
 		for (S3ObjectSummary file : files) {
 			jsonResult.append(file.getKey(), file.getSize());
 		}

@@ -42,7 +42,7 @@ public class S3ServiceImpl implements S3Service {
 	}
 
 	public List<S3ObjectSummary> listBucketContents(String bucket)
-			throws AmazonClientException, AmazonServiceException {
+			throws AmazonClientException {
 //		logger.info(accessKey + "***" + secretKey);
 		ObjectListing listing = amazonS3.listObjects(bucket);
 		List<S3ObjectSummary> summaries = listing.getObjectSummaries();
