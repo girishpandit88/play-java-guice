@@ -2,3 +2,7 @@ Play-java-guice application that list contents of s3 buckets with their size
 =====================================
 
 This file will be packaged with your application, when using `play dist`.
+
+Usage:
+
+curl -H "Content-Type: application/json" --data '{ "bucketName": "android-test-p4-init", "nestedJSON": { "abc": "xyz", "def": "mnq" } }' -X POST "http://localhost:9000/getContents"
